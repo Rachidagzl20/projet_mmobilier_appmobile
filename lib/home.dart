@@ -3,7 +3,7 @@ import 'package:projet_mmobilier_appmobile/appBarpage.dart';
 import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
 import 'pages/acceuil.dart';
 import 'pages/chat.dart';
-import 'pages/profil.dart';
+import 'pages/notifecation.dart';
 import 'pages/project.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _HomeState extends State<Home> {
     myacceuil(),
     Project(),
     Chat(),
-    Profil(),
+    notifecation(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen =myacceuil();
@@ -104,14 +104,14 @@ class _HomeState extends State<Home> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = Profil();
+                        currentScreen = Chat();
                         currentTab=2;
                       });
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.person,
+                        Icon(Icons.chat,
                           size: 34.0,
                           color: currentTab==2 ? Colors.white60: Colors.white,
                         )
@@ -125,14 +125,14 @@ class _HomeState extends State<Home> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = Chat();
+                        currentScreen = notifecation();
                         currentTab=3;
                       });
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.chat,
+                        Icon(Icons.notifications,
                           size: 30.0,
                           color: currentTab==3 ? Colors.white60: Colors.white,
                         )
@@ -149,6 +149,9 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+
+
 }
 
 

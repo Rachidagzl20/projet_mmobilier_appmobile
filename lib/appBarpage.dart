@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'pages/profil.dart';
 import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -15,7 +16,13 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     actions: [
     IconButton(onPressed: (){},
     icon: Icon(Icons.search_rounded)),
-    IconButton(onPressed: (){},  icon: Icon(Icons.notifications_active)),
+    IconButton(icon: Icon(Icons.person),onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Profil()),
+      );
+    },
+    ),
     IconButton(onPressed: (){}, icon: Icon(Icons.logout_outlined))
     ],
 

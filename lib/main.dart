@@ -10,6 +10,7 @@ void main() => runApp( MaterialApp(
     "/getstarted":(context) =>GetStarted(),
     "/loginpage":(context) =>LoginPage(),
     "/Home":(context) =>Home(),
+
   },
   initialRoute: "/",
 ));
