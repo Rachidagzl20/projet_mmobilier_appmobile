@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projet_mmobilier_appmobile/appBarpage.dart';
+import 'package:projet_mmobilier_appmobile/pages/Ajout_Mont_Bottomsheet.dart';
 import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
 import 'pages/acceuil.dart';
 import 'pages/chat.dart';
@@ -33,119 +33,149 @@ class _HomeState extends State<Home> {
         width: 65,
         height: 65,
         child: FloatingActionButton(
-          onPressed: () {  },
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              shape:  RoundedRectangleBorder(
+                borderRadius: const BorderRadius.vertical(
+                    top:Radius.circular(50.0),
+                ),
+              ),
+              builder: (context) => const SingleChildScrollView(
+                child: MyBottomSheet(),
+              ),
+
+            );
+          },
           child: Icon(Icons.add,
           ),
           backgroundColor: AppColors.primary,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        color: AppColors.primary,
-        shape: CircularNotchedRectangle(),
-        notchMargin: 10.0,
-        child: Container(
-          height: 60,
-          child:Row(
+      bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+          topRight: Radius.circular(30), topLeft: Radius.circular(30)),
 
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = myacceuil();
-                        currentTab=0;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.home_outlined,
-                          size: 34.0,
-                          color: currentTab==0 ? Colors.white60: Colors.white,
-                        )
-                      ],
-                    ),
+    ),
 
 
+
+    child: ClipRRect(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(25.0),
+        topRight: Radius.circular(25.0),
+      ),
+      child: BottomAppBar(
+            color: AppColors.primary,
+            shape: CircularNotchedRectangle(),
+            notchMargin: 4.0,
+            child: Container(
+              height: 60,
+              child:Row(
+
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MaterialButton(
+                        minWidth: 40,
+                        onPressed: () {
+                          setState(() {
+                            currentScreen = myacceuil();
+                            currentTab=0;
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.home_outlined,
+                              size: 34.0,
+                              color: currentTab==0 ? Colors.white60: Colors.white,
+                            )
+                          ],
+                        ),
+
+
+                      ),
+                      SizedBox(width: 29.0,),
+                      MaterialButton(
+                        minWidth: 40,
+                        onPressed: () {
+                          setState(() {
+                            currentScreen = Project();
+                            currentTab=1;
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.business,
+                              size: 30.0,
+                              color: currentTab==1 ? Colors.white60: Colors.white,
+                            )
+                          ],
+                        ),
+
+
+                      ),
+                    ],
                   ),
-                  SizedBox(width: 29.0,),
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = Project();
-                        currentTab=1;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.business,
-                          size: 30.0,
-                          color: currentTab==1 ? Colors.white60: Colors.white,
-                        )
-                      ],
-                    ),
+                  //RIGHT TAB ICONS
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MaterialButton(
+                        minWidth: 40,
+                        onPressed: () {
+                          setState(() {
+                            currentScreen = Chat();
+                            currentTab=2;
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.chat,
+                              size: 34.0,
+                              color: currentTab==2 ? Colors.white60: Colors.white,
+                            )
+                          ],
+                        ),
 
 
+                      ),
+                      SizedBox(width: 29.0,),
+                      MaterialButton(
+                        minWidth: 40,
+                        onPressed: () {
+                          setState(() {
+                            currentScreen = notifecation();
+                            currentTab=3;
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.notifications,
+                              size: 30.0,
+                              color: currentTab==3 ? Colors.white60: Colors.white,
+                            )
+                          ],
+                        ),
+
+
+                      ),
+                    ],
                   ),
                 ],
               ),
-              //RIGHT TAB ICONS
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = Chat();
-                        currentTab=2;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.chat,
-                          size: 34.0,
-                          color: currentTab==2 ? Colors.white60: Colors.white,
-                        )
-                      ],
-                    ),
-
-
-                  ),
-                  SizedBox(width: 29.0,),
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = notifecation();
-                        currentTab=3;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.notifications,
-                          size: 30.0,
-                          color: currentTab==3 ? Colors.white60: Colors.white,
-                        )
-                      ],
-                    ),
-
-
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
-        ),
+    ),
       ),
     );
   }
