@@ -5,6 +5,7 @@ import 'pages/acceuil.dart';
 import 'pages/chat.dart';
 import 'pages/notifecation.dart';
 import 'pages/project.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -13,15 +14,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int currentTab=0;
-  final List<Widget> screens =[
+  int currentTab = 0;
+  final List<Widget> screens = [
     myacceuil(),
     Project(),
     Chat(),
     notifecation(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen =myacceuil();
+  Widget currentScreen = myacceuil();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,45 +39,36 @@ class _HomeState extends State<Home> {
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
-              shape:  RoundedRectangleBorder(
+              shape: RoundedRectangleBorder(
                 borderRadius: const BorderRadius.vertical(
-                    top:Radius.circular(50.0),
+                  top: Radius.circular(50.0),
                 ),
               ),
               builder: (context) => const SingleChildScrollView(
                 child: MyBottomSheet(),
               ),
-
             );
           },
-          child: Icon(Icons.add,
+          child: Icon(
+            Icons.add,
           ),
           backgroundColor: AppColors.primary,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
-          decoration: BoxDecoration(
+        child: ClipRRect(
           borderRadius: BorderRadius.only(
-          topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-
-    ),
-
-
-
-    child: ClipRRect(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(25.0),
-        topRight: Radius.circular(25.0),
-      ),
-      child: BottomAppBar(
+            topLeft: Radius.circular(25.0),
+            topRight: Radius.circular(25.0),
+          ),
+          child: BottomAppBar(
             color: AppColors.primary,
             shape: CircularNotchedRectangle(),
             notchMargin: 4.0,
             child: Container(
               height: 60,
-              child:Row(
-
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Row(
@@ -86,41 +79,45 @@ class _HomeState extends State<Home> {
                         onPressed: () {
                           setState(() {
                             currentScreen = myacceuil();
-                            currentTab=0;
+                            currentTab = 0;
                           });
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.home_outlined,
+                            Icon(
+                              Icons.home_outlined,
                               size: 34.0,
-                              color: currentTab==0 ? Colors.white60: Colors.white,
+                              color: currentTab == 0
+                                  ? Colors.white60
+                                  : Colors.white,
                             )
                           ],
                         ),
-
-
                       ),
-                      SizedBox(width: 29.0,),
+                      SizedBox(
+                        width: 29.0,
+                      ),
                       MaterialButton(
                         minWidth: 40,
                         onPressed: () {
                           setState(() {
                             currentScreen = Project();
-                            currentTab=1;
+                            currentTab = 1;
                           });
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.business,
+                            Icon(
+                              Icons.business,
                               size: 30.0,
-                              color: currentTab==1 ? Colors.white60: Colors.white,
+                              color: currentTab == 1
+                                  ? Colors.white60
+                                  : Colors.white,
                             )
                           ],
                         ),
-
-
                       ),
                     ],
                   ),
@@ -133,41 +130,45 @@ class _HomeState extends State<Home> {
                         onPressed: () {
                           setState(() {
                             currentScreen = Chat();
-                            currentTab=2;
+                            currentTab = 2;
                           });
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.chat,
+                            Icon(
+                              Icons.chat,
                               size: 34.0,
-                              color: currentTab==2 ? Colors.white60: Colors.white,
+                              color: currentTab == 2
+                                  ? Colors.white60
+                                  : Colors.white,
                             )
                           ],
                         ),
-
-
                       ),
-                      SizedBox(width: 29.0,),
+                      SizedBox(
+                        width: 29.0,
+                      ),
                       MaterialButton(
                         minWidth: 40,
                         onPressed: () {
                           setState(() {
                             currentScreen = notifecation();
-                            currentTab=3;
+                            currentTab = 3;
                           });
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.notifications,
+                            Icon(
+                              Icons.notifications,
                               size: 30.0,
-                              color: currentTab==3 ? Colors.white60: Colors.white,
+                              color: currentTab == 3
+                                  ? Colors.white60
+                                  : Colors.white,
                             )
                           ],
                         ),
-
-
                       ),
                     ],
                   ),
@@ -175,13 +176,8 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-    ),
+        ),
       ),
     );
   }
-
-
-
 }
-
-
