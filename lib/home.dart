@@ -27,6 +27,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
+
       body: PageStorage(
         bucket: bucket,
         child: currentScreen,
@@ -57,127 +59,131 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
-        child: ClipRRect(
+        clipBehavior: Clip.hardEdge, //or better look(and cost) using Clip.antiAlias,
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(25.0),
-            topRight: Radius.circular(25.0),
+            topRight: Radius.circular(24),
+            topLeft: Radius.circular(24),
           ),
-          child: BottomAppBar(
-            color: AppColors.primary,
-            shape: CircularNotchedRectangle(),
-            notchMargin: 4.0,
-            child: Container(
-              height: 60,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      MaterialButton(
-                        minWidth: 40,
-                        onPressed: () {
-                          setState(() {
-                            currentScreen = myacceuil();
-                            currentTab = 0;
-                          });
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.home_outlined,
-                              size: 34.0,
-                              color: currentTab == 0
-                                  ? Colors.white60
-                                  : Colors.white,
-                            )
-                          ],
+
+
+        ),
+        child: BottomAppBar(
+              color: AppColors.primary,
+              shape: CircularNotchedRectangle(),
+              notchMargin: 4.0,
+              child: Container(
+                height: 60,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MaterialButton(
+                          minWidth: 40,
+                          onPressed: () {
+                            setState(() {
+                              currentScreen = myacceuil();
+                              currentTab = 0;
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.home_outlined,
+                                size: 34.0,
+                                color: currentTab == 0
+                                    ? Colors.white60
+                                    : Colors.white,
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 29.0,
-                      ),
-                      MaterialButton(
-                        minWidth: 40,
-                        onPressed: () {
-                          setState(() {
-                            currentScreen = Project();
-                            currentTab = 1;
-                          });
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.business,
-                              size: 30.0,
-                              color: currentTab == 1
-                                  ? Colors.white60
-                                  : Colors.white,
-                            )
-                          ],
+                        SizedBox(
+                          width: 29.0,
                         ),
-                      ),
-                    ],
-                  ),
-                  //RIGHT TAB ICONS
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      MaterialButton(
-                        minWidth: 40,
-                        onPressed: () {
-                          setState(() {
-                            currentScreen = Chat();
-                            currentTab = 2;
-                          });
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.chat,
-                              size: 34.0,
-                              color: currentTab == 2
-                                  ? Colors.white60
-                                  : Colors.white,
-                            )
-                          ],
+                        MaterialButton(
+                          minWidth: 40,
+                          onPressed: () {
+                            setState(() {
+                              currentScreen = Project();
+                              currentTab = 1;
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.business,
+                                size: 30.0,
+                                color: currentTab == 1
+                                    ? Colors.white60
+                                    : Colors.white,
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 29.0,
-                      ),
-                      MaterialButton(
-                        minWidth: 40,
-                        onPressed: () {
-                          setState(() {
-                            currentScreen = notifecation();
-                            currentTab = 3;
-                          });
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.notifications,
-                              size: 30.0,
-                              color: currentTab == 3
-                                  ? Colors.white60
-                                  : Colors.white,
-                            )
-                          ],
+                      ],
+                    ),
+                    //RIGHT TAB ICONS
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MaterialButton(
+                          minWidth: 40,
+                          onPressed: () {
+                            setState(() {
+                              currentScreen = Chat();
+                              currentTab = 2;
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.chat,
+                                size: 34.0,
+                                color: currentTab == 2
+                                    ? Colors.white60
+                                    : Colors.white,
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        SizedBox(
+                          width: 29.0,
+                        ),
+                        MaterialButton(
+                          minWidth: 40,
+                          onPressed: () {
+                            setState(() {
+                              currentScreen = notifecation();
+                              currentTab = 3;
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.notifications,
+                                size: 30.0,
+                                color: currentTab == 3
+                                    ? Colors.white60
+                                    : Colors.white,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ),
       ),
+
     );
   }
 }

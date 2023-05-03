@@ -21,11 +21,11 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
       alignment: Alignment.topCenter,
       children: [
         Positioned(
-            top: -15,
+            top: -10,
             child: Container(
               width: 100,
               height: 5,
-              color: AppColors.primary,
+              color: Colors.white,
             )),
         Container(
           height: MediaQuery.of(context).size.height * 0.7,
