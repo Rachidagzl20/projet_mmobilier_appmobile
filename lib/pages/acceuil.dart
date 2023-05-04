@@ -65,7 +65,7 @@ class _myacceuilState extends State<myacceuil> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
-                  offset: Offset(0, 1), // changes position of shadow
+                  offset: Offset(0, 0.5), // changes position of shadow
                 ),
               ],
             ),

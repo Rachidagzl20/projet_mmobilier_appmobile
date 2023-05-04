@@ -34,8 +34,8 @@ class _HomeState extends State<Home> {
         child: currentScreen,
       ),
       floatingActionButton: SizedBox(
-        width: 65,
-        height: 65,
+        width: 54,
+        height: 54,
         child: FloatingActionButton(
           onPressed: () {
             showModalBottomSheet(
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
               isScrollControlled: true,
               shape: RoundedRectangleBorder(
                 borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(50.0),
+                  top: Radius.circular(40.0),
                 ),
               ),
               builder: (context) => const SingleChildScrollView(
@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
         child: BottomAppBar(
               color: AppColors.primary,
               shape: CircularNotchedRectangle(),
-              notchMargin: 4.0,
+              notchMargin: 3.0,
               child: Container(
                 height: 60,
                 child: Row(
