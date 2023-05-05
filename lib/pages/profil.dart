@@ -103,59 +103,166 @@ class _ProfilState extends State<Profil> {
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: Column(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 260.0),
+                      child: Text(
+                        "Prénom",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
                     TextFormField(
+                      cursorColor: AppColors.primary,
+                      cursorHeight: 23,
+
                       controller: _firstNameController,
                       decoration: InputDecoration(
-                        labelText: 'Prénom',
-                        prefixIcon: Icon(Icons.person),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25),
+                        hintText: "Saisir votre prenom",
+
+                        prefixIcon: Icon(Icons.person,
+                        color: AppColors.primary,),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40),
+                          borderSide: BorderSide(width: 1, color:AppColors.primary ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(width: 1, color:AppColors.accent )
                         ),
                       ),
                     ),
                     SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 260.0),
+                      child: Text(
+                        "Nom",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
                     TextFormField(
+                      cursorColor: AppColors.primary,
+                      cursorHeight: 23,
+
                       controller: _lastNameController,
                       decoration: InputDecoration(
-                        labelText: 'Nom',
-                        prefixIcon: Icon(Icons.person),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
+                        hintText: "Saisir votre Nom",
+                        prefixIcon: Icon(Icons.person,
+                            color: AppColors.primary),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: BorderSide(width: 1, color:AppColors.primary ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide(width: 1, color:AppColors.accent )
+                          ),
                       ),
                     ),
                     SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 260.0),
+                      child: Text(
+                        "Email",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
                     TextFormField(
+                      cursorColor: AppColors.primary,
+                      cursorHeight: 23,
+
                       controller: _emailController,
                       decoration: InputDecoration(
-                        labelText: 'Email',
-                        prefixIcon: Icon(Icons.email),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25),
+                        hintText: 'Email',
+                        prefixIcon: Icon(Icons.email,
+                            color: AppColors.primary),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: BorderSide(width: 1, color:AppColors.primary ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide(width: 1, color:AppColors.accent )
+                          ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 180.0),
+                      child: Text(
+                        "Numéro de téléphone",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+
                         ),
                       ),
                     ),
                     SizedBox(height: 10),
+
                     TextFormField(
+                      cursorColor: AppColors.primary,
+                      cursorHeight: 23,
+
                       controller: _phoneNumberController,
                       decoration: InputDecoration(
-                        labelText: 'Numéro de téléphone',
-                        prefixIcon: Icon(Icons.phone),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25),
+                        hintText: 'Numéro de téléphone',
+                        prefixIcon: Icon(Icons.phone,
+                            color: AppColors.primary),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: BorderSide(width: 1, color:AppColors.primary ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide(width: 1, color:AppColors.accent )
+                          ),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 260.0),
+                      child: Text(
+                        "Adresse",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 10,),
+
                     TextFormField(
+                      cursorColor: AppColors.primary,
+                      cursorHeight: 23,
+
                       controller: _addressController,
                       decoration: InputDecoration(
-                        labelText: 'Adresse',
-                        prefixIcon: Icon(Icons.location_on),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
+                        hintText: 'Adresse',
+                        prefixIcon: Icon(Icons.location_on,
+                        color: AppColors.primary,),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: BorderSide(width: 1, color:AppColors.primary ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide(width: 1, color:AppColors.accent )
+                          ),),
                     ),
                     SizedBox(height: 40),
                     Row(

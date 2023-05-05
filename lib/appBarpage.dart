@@ -19,9 +19,11 @@ class _MyAppBarState extends State<MyAppBar> {
     return AppBar(
       elevation: 0,
       backgroundColor: AppColors.primary,
+      automaticallyImplyLeading: false, // Add this line to remove the back button icon
       leading: _buildLeading(),
       actions: _buildActions(),
     );
+
   }
 
   Widget? _buildLeading() {
