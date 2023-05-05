@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:projet_mmobilier_appmobile/home.dart';
 import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
-import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
-import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
-import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
-import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
-import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
-import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
+
+
+import 'change_password.dart';
+import 'forgot_password_screen.dart';
 
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
+
 }
 
 class _LoginPageState extends State<LoginPage> {
   bool _rememberMe = false;
-
+  bool _showPassword = false;
+  void _togglevisibility() {
+    setState(() {
+      _showPassword = !_showPassword;
+    });
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,64 +64,136 @@ class _LoginPageState extends State<LoginPage> {
                   Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.person,
-                              color: AppColors.primary,
-                            ),
-                            labelText: 'Email',
-                            hintText: 'Enter your email',
+                        padding: const EdgeInsets.only(right: 200.0),
+                        child: Text(
+                          "Nom d’utilisateur",
+                          style: TextStyle(
+                            color: Colors.black,
 
-
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(width: 1, color:AppColors.primary )),
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 3,),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                             //<-- SEE HERE
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              color: AppColors.primary,
-                            ),
-                            labelText: 'Password',
-                            hintText: 'Enter your password',
-                            enabledBorder: OutlineInputBorder(
+                        padding: const EdgeInsets.fromLTRB(15, 1, 15, 0),
+                        child: Theme(
+                          data: Theme.of(context).copyWith(
+                            inputDecorationTheme: InputDecorationTheme(
+                              enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(width: 1, color:AppColors.primary )),
+                                borderSide: BorderSide(width: 1, color:AppColors.primary ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide: BorderSide(width: 1, color:AppColors.accent )
+                              ),
+                            ),
                           ),
-                          obscureText: true,
+                          child: TextFormField(
+
+                            decoration: InputDecoration(
+
+                              prefixIcon: Icon(
+                                Icons.person,
+                                color: AppColors.primary,
+                              ),
+                              hintText: 'saisir votre nom d’utilisateur',
+
+                            ),
+                            validator: (value) {
+                              if(value != null && value.isEmpty) {
+                                return 'Please enter your Username';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 6),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 225.0),
+                        child: Text(
+                          "Mot de passe",
+                          style: TextStyle(
+                            color: Colors.black,
+
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 3,),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 15.0),
+                        child: Theme(
+                          data: Theme.of(context).copyWith(
+                            inputDecorationTheme: InputDecorationTheme(
+                              enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: BorderSide(width: 1, color:AppColors.primary ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide: BorderSide(width: 1, color:AppColors.accent )
+                              ),
+                            ),
+                          ),
+                          child: TextFormField(
+                            obscureText: !_showPassword,
+                            cursorColor: Colors.blueAccent,
+                            decoration: InputDecoration(
+
+                              prefixIcon: Icon(
+                                Icons.lock,
+                                color: AppColors.primary,
+                              ),
+                              hintText: '*********************',
+                              suffixIcon: GestureDetector(
+                                onTap: () {
+                                  _togglevisibility();
+                                },
+                                child: Icon(
+                                  _showPassword ? Icons.visibility : Icons
+                                      .visibility_off, color: AppColors.primary,),
+                              ),
+                            ),
+                            validator: (value) {
+                              if(value?.isEmpty ?? true) {
+                                return 'Please enter your email';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: 5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Row(
                             children: [
                               Checkbox(
-                                value: false,
-                                onChanged: (value) {},
+                                value : true,
+                                onChanged: (value) { },
                               ),
-                              Text("Remember me",
+                              Text("REMEMBER ME",
                               style: TextStyle(
-                                color: Colors.blue,
+                                color: AppColors.primary,
                               ),),
                             ],
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ResetPasswordScreen(), // replace LoginPage with your actual login page widget
+                                ),
+                              );
+                            },
                             child: Text(
                               "Forgot password ?",
                               style: TextStyle(
-                                color: Colors.blue,
+                                color: AppColors.primary,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -150,7 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                            EdgeInsets.symmetric(horizontal: 84, vertical: 8),
+                            EdgeInsets.symmetric(horizontal: 90, vertical: 14),
                           ),
                         ),
                       ),
@@ -175,7 +256,7 @@ class _LoginPageState extends State<LoginPage> {
 
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                            Color(0xFF367CFF),
+                            AppColors.accent,
                           ),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
@@ -183,7 +264,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                            EdgeInsets.symmetric(horizontal: 60, vertical: 8),
+                            EdgeInsets.symmetric(horizontal: 70, vertical: 14),
                           ),
                         ),
                       ),
