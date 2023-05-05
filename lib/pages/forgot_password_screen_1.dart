@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
 
-import 'EnterCodeScreen.dart';
+import 'forgot_password_screen_2.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   @override
@@ -64,7 +64,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 Text(
                   'Réinitialiser le mot de passe',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 23,
                     fontWeight: FontWeight.bold,
                     color: AppColors.primary,
                   ),
@@ -74,7 +74,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 Text(
                   'Entrez l\'e-mail associé à votre compte et nous vous enverrons un e-mail avec le code de verification pour réinitialiser votre mot de passe.,',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
 
                   ),
 

@@ -4,7 +4,7 @@ import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
 
 
 import 'change_password.dart';
-import 'forgot_password_screen.dart';
+import 'forgot_password_screen_1.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -157,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             validator: (value) {
                               if(value?.isEmpty ?? true) {
-                                return 'Please enter your email';
+                                return 'Please enter your password';
                               }
                               return null;
                             },
@@ -276,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Home(), // replace LoginPage with your actual login page widget
+                              builder: (context) => ResetPasswordScreen(), // replace LoginPage with your actual login page widget
                             ),
                           );
                         },
