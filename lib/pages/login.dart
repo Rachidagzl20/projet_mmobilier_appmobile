@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 18.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Text(
                   "AUTHENTIFICATION",
                   style: TextStyle(

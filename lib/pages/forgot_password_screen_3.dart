@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/app_color.dart';
+import 'forgot_password_screen_4.dart';
 
 class forgot_Password_change_Screen extends StatefulWidget {
   const forgot_Password_change_Screen({Key? key}) : super(key: key);
@@ -12,6 +13,8 @@ class _forgot_Password_change_ScreenState extends State<forgot_Password_change_S
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
   TextEditingController();
+  late bool _isObscureNewPassword = true;
+  late bool _isObscureConfirmPassword = true;
 
   void _resetPassword() {
     // TODO: Implement password reset logic here
@@ -35,7 +38,7 @@ class _forgot_Password_change_ScreenState extends State<forgot_Password_change_S
               Padding(
                 padding: const EdgeInsets.only(top: 1.0),
                 child: Image.asset(
-                  'assets/forgot_img_4.png',
+                  'assets/forgot_img_5.png',
                   width: 150,
                   height: 150,
                 ),
@@ -69,9 +72,10 @@ class _forgot_Password_change_ScreenState extends State<forgot_Password_change_S
               SizedBox(
                 height: 36,
               ),
+
               TextField(
                 controller: _newPasswordController,
-                obscureText: true,
+                obscureText: _isObscureNewPassword,
                 decoration: InputDecoration(
                   hintText: 'Nouveau mot de passe',
                   enabledBorder: OutlineInputBorder(
@@ -82,6 +86,14 @@ class _forgot_Password_change_ScreenState extends State<forgot_Password_change_S
                       borderRadius: BorderRadius.circular(30),
                       borderSide: BorderSide(width: 1, color:AppColors.accent )
                   ),
+                  suffixIcon: IconButton(
+                    icon: Icon(_isObscureNewPassword ? Icons.visibility_off : Icons.visibility),
+                    onPressed: () {
+                      setState(() {
+                        _isObscureNewPassword = !_isObscureNewPassword;
+                      });
+                    },
+                  ),
                 ),
               ),
               SizedBox(
@@ -89,7 +101,7 @@ class _forgot_Password_change_ScreenState extends State<forgot_Password_change_S
               ),
               TextField(
                 controller: _confirmPasswordController,
-                obscureText: true,
+                obscureText: _isObscureConfirmPassword,
                 decoration: InputDecoration(
                   hintText: 'Confirmer le mot de passe',
                   enabledBorder: OutlineInputBorder(
@@ -100,13 +112,27 @@ class _forgot_Password_change_ScreenState extends State<forgot_Password_change_S
                       borderRadius: BorderRadius.circular(30),
                       borderSide: BorderSide(width: 1, color:AppColors.accent )
                   ),
+                  suffixIcon: IconButton(
+                    icon: Icon(_isObscureConfirmPassword ? Icons.visibility_off : Icons.visibility),
+                    onPressed: () {
+                      setState(() {
+                        _isObscureConfirmPassword = !_isObscureConfirmPassword;
+                      });
+                    },
+                  ),
                 ),
               ),
+
+
               SizedBox(
                 height: 40,
               ),
               ElevatedButton(
-                onPressed: _resetPassword,
+                onPressed: (){
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => forgot_password_screen_4()),
+                );},
                 child: Text('Valider'),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
