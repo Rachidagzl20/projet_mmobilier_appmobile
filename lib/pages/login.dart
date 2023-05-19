@@ -276,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ResetPasswordScreen(), // replace LoginPage with your actual login page widget
+                              builder: (context) => Home(), // replace LoginPage with your actual login page widget
                             ),
                           );
                         },

@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
     myacceuil(),
     Project(),
     Chat(),
-    notifecation(),
+    NotificationPage(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = myacceuil();
@@ -160,7 +160,7 @@ class _HomeState extends State<Home> {
                           minWidth: 40,
                           onPressed: () {
                             setState(() {
-                              currentScreen = notifecation();
+                              currentScreen = NotificationPage();
                               currentTab = 3;
                             });
                           },
