@@ -1,30 +1,123 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:projet_mmobilier_appmobile/home.dart';
 import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
-
-
-import 'change_password.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'forgot_password_screen_1.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
-
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _login() async {
+    String username = _usernameController.text;
+    String password = _passwordController.text;
+
+    // Create the login request body
+    Map<String, String> body = {
+      'username': username,
+      'password': password,
+    };
+
+    // Make the HTTP POST request to your Node.js server
+    Uri url = Uri.parse('http://localhost:3000/auth/login');
+    http.Response response = await http.post(url, body: body);
+
+    // Handle the response
+    if (response.statusCode == 200) {
+      // Login success
+      print('Login success');
+      String data= response.body;
+      Map<String, dynamic> decodedToken = jsonDecode(data);
+      String email = decodedToken['email'];
+      String nomComplet = decodedToken['nomComplet'];
+      String adresse = decodedToken['adresse'];
+      String image = decodedToken['image'];
+      String CIN = decodedToken['CIN'];
+      String telephone = decodedToken['telephone'];
+
+      // Save the authentication token securely
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('email', email);
+      prefs.setString('nomComplet', nomComplet);
+      prefs.setString('adresse', adresse);
+      prefs.setString('image', image);
+      prefs.setString('CIN', CIN);
+      prefs.setString('telephone', telephone);
+
+
+      // Retrieve the stored token
+
+      // Compare the stored token with the response body
+      if (data == response.body) {
+        print('Token stored successfully: $email');
+
+
+      } else {
+        print('Failed to store token');
+      }
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home(),
+        ),
+      );
+    } else if (response.statusCode == 403) {
+      // Login failed, show error pop-up
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Invalid username or password'),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  // Button Support
+  void openWhatsApp() async {
+    String phoneNumber = '0689675163'; // WhatsApp phone number
+    String message = 'Hello, I need support!';
+
+    String url = 'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch WhatsApp.';
+    }
+  }
+
   bool _rememberMe = false;
   bool _showPassword = false;
-  void _togglevisibility() {
+  void _toggleVisibility() {
     setState(() {
       _showPassword = !_showPassword;
     });
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
   }
-}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,251 +141,235 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top:1.0),
+                padding: const EdgeInsets.only(top: 1.0),
                 child: Image.asset(
                   'assets/img_Auth.png',
                   width: 250,
                   height: 250,
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.only(bottom: 40.0),
-                child: Expanded(
-                  child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 200.0),
-                        child: Text(
-                          "Nom d’utilisateur",
-                          style: TextStyle(
-                            color: Colors.black,
-
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 3,),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 1, 15, 0),
-                        child: Theme(
-                          data: Theme.of(context).copyWith(
-                            inputDecorationTheme: InputDecorationTheme(
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(width: 1, color:AppColors.primary ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(width: 1, color:AppColors.accent )
-                              ),
-                            ),
-                          ),
-                          child: TextFormField(
-
-                            decoration: InputDecoration(
-
-                              prefixIcon: Icon(
-                                Icons.person,
-                                color: AppColors.primary,
-                              ),
-                              hintText: 'saisir votre nom d’utilisateur',
-
-                            ),
-                            validator: (value) {
-                              if(value != null && value.isEmpty) {
-                                return 'Please enter your Username';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 6),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 225.0),
-                        child: Text(
-                          "Mot de passe",
-                          style: TextStyle(
-                            color: Colors.black,
-
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 3,),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 15.0),
-                        child: Theme(
-                          data: Theme.of(context).copyWith(
-                            inputDecorationTheme: InputDecorationTheme(
-                              enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide(width: 1, color:AppColors.primary ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(width: 1, color:AppColors.accent )
-                              ),
-                            ),
-                          ),
-                          child: TextFormField(
-                            obscureText: !_showPassword,
-                            cursorColor: Colors.blueAccent,
-                            decoration: InputDecoration(
-
-                              prefixIcon: Icon(
-                                Icons.lock,
-                                color: AppColors.primary,
-                              ),
-                              hintText: '*********************',
-                              suffixIcon: GestureDetector(
-                                onTap: () {
-                                  _togglevisibility();
-                                },
-                                child: Icon(
-                                  _showPassword ? Icons.visibility : Icons
-                                      .visibility_off, color: AppColors.primary,),
-                              ),
-                            ),
-                            validator: (value) {
-                              if(value?.isEmpty ?? true) {
-                                return 'Please enter your password';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(height: 5),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Column(
                         children: [
-                          Row(
-                            children: [
-                              Checkbox(
-                                value : true,
-                                onChanged: (value) { },
-                              ),
-                              Text("REMEMBER ME",
+                          Padding(
+                            padding: const EdgeInsets.only(right: 200.0),
+                            child: Text(
+                              "Nom d’utilisateur",
                               style: TextStyle(
-                                color: AppColors.primary,
-                              ),),
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 3),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 1, 15, 0),
+                            child: Theme(
+                              data: Theme.of(context).copyWith(
+                                inputDecorationTheme: InputDecorationTheme(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(width: 1, color: AppColors.primary),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: BorderSide(width: 1, color: AppColors.accent)),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(color: Colors.red, width: 1),
+                                  ),
+                                ),
+                              ),
+                              child: TextFormField(
+                                controller: _usernameController,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.person,
+                                    color: AppColors.primary,
+                                  ),
+                                  hintText: 'saisir votre nom d’utilisateur',
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "this field is required";
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 6),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 225.0),
+                            child: Text(
+                              "Mot de passe",
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 3),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 15.0),
+                            child: Theme(
+                              data: Theme.of(context).copyWith(
+                                inputDecorationTheme: InputDecorationTheme(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: BorderSide(width: 1, color: AppColors.primary)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: BorderSide(width: 1, color: AppColors.accent)),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(color: Colors.red, width: 1),
+                                  ),
+                                ),
+                              ),
+                              child: TextFormField(
+                                controller: _passwordController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "this field is required";
+                                  }
+                                  return null;
+                                },
+                                obscureText: !_showPassword,
+                                cursorColor: Colors.blueAccent,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.lock,
+                                    color: AppColors.primary,
+                                  ),
+                                  hintText: '*********************',
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      _toggleVisibility();
+                                    },
+                                    child: Icon(
+                                      _showPassword ? Icons.visibility : Icons.visibility_off,
+                                      color: AppColors.primary,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: _rememberMe,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _rememberMe = value!;
+                                      });
+                                    },
+                                  ),
+                                  const Text(
+                                    "REMEMBER ME",
+                                    style: TextStyle(
+                                      color: AppColors.primary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ResetPasswordScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  "Forgot password ?",
+                                  style: TextStyle(
+                                    color: AppColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ResetPasswordScreen(), // replace LoginPage with your actual login page widget
-                                ),
-                              );
+                          SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () {
+                              _login();
+                              if (_formKey.currentState?.validate() == true) {
+                                print("ok");
+                              } else {
+                                print("not okey");
+                              }
                             },
-                            child: Text(
-                              "Forgot password ?",
-                              style: TextStyle(
-                                color: AppColors.primary,
-                                fontWeight: FontWeight.bold,
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.primary,
                               ),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                ),
+                              ),
+                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                EdgeInsets.symmetric(horizontal: 90, vertical: 14),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                Text(
+                                  "Connexion",
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(width: 20.0),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          ElevatedButton(
+                            onPressed: openWhatsApp,
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.accent,
+                              ),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                ),
+                              ),
+                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                EdgeInsets.symmetric(horizontal: 70, vertical: 14),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                Text(
+                                  "Contacter support",
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                                SizedBox(width: 0.0),
+                              ],
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text("Connexion",
-                            style: TextStyle(
-
-                              fontSize: 20.0,
-
-                            ), textAlign: TextAlign.center,),
-
-                            SizedBox(width: 20.0),
-
-
-
-                        ],),
-
-
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            AppColors.primary,
-                          ),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100.0),
-                            ),
-                          ),
-                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                            EdgeInsets.symmetric(horizontal: 90, vertical: 14),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15),
-
-                      ElevatedButton(
-
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text("Contacter support",
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),),
-                            SizedBox(width: 0.0),
-
-
-
-                          ],),
-
-
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            AppColors.accent,
-                          ),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100.0),
-                            ),
-                          ),
-                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                            EdgeInsets.symmetric(horizontal: 70, vertical: 14),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                      SizedBox(height: 10),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Home(), // replace LoginPage with your actual login page widget
-                            ),
-                          );
-                        },
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: AppColors.primary,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),

@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.projet_mmobilier_appmobile">
-   <application
+    package="com.example.projet_mmobilier_appmobile"
+    >
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
         android:label="projet_mmobilier_appmobile"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

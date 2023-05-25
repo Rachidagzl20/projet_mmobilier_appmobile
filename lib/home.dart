@@ -16,9 +16,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentTab = 0;
   final List<Widget> screens = [
-    myacceuil(),
-    Project(),
-    Chat(),
+    const myacceuil(),
+    const Project(),
+    const Chat(),
     NotificationPage(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();

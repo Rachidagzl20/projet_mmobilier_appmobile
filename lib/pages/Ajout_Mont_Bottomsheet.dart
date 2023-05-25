@@ -50,7 +50,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 250.0),
@@ -78,7 +78,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                       ),
                     ),
                     keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
+                    TextInputType.numberWithOptions(decimal: true),
                     style: TextStyle(
                       color: Colors.white, // set the color to red
                     ),
@@ -115,7 +115,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                 ),
                 SizedBox(height: 20.0),
                 Padding(
-                  padding: const EdgeInsets.only(right: 269.0),
+                  padding: const EdgeInsets.only(right: 260.0),
                   child: Text(
                     "PROJET",
                     style: TextStyle(
@@ -142,16 +142,16 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                     ),
                     items: ['Project 1', 'Project 2', 'Project 3']
                         .map((project) => DropdownMenuItem(
-                              value: project,
-                              child: Text(project),
-                            ))
+                      value: project,
+                      child: Text(project),
+                    ))
                         .toList(),
                     onChanged: (value) {},
                   ),
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: 10.0),
                 Padding(
-                  padding: const EdgeInsets.only(right: 188.0),
+                  padding: const EdgeInsets.only(right: 150.0),
                   child: Text(
                     "LA PREUVE BANCAIRE",
                     style: TextStyle(
@@ -225,7 +225,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                       // set the border color and width
                       shape: RoundedRectangleBorder(
                         borderRadius:
-                            BorderRadius.circular(30), // set the border radius
+                        BorderRadius.circular(30), // set the border radius
                       ),
                     ),
                   ),
@@ -237,7 +237,6 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
       ],
     );
   }
-
   Future selectImage() async {
     final pickedFile = await _picker.getImage(source: ImageSource.gallery);
 

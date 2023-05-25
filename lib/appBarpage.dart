@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:projet_mmobilier_appmobile/pages/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'pages/profil.dart';
 import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const MyAppBar({super.key});
+
   @override
   _MyAppBarState createState() => _MyAppBarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class _MyAppBarState extends State<MyAppBar> {
@@ -50,10 +55,10 @@ class _MyAppBarState extends State<MyAppBar> {
               cursorHeight: 27,
               controller: _searchController,
               autofocus: true,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white, // Set search text color to white
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search...',
                 border: InputBorder.none,
                 hintStyle: TextStyle(
@@ -70,7 +75,7 @@ class _MyAppBarState extends State<MyAppBar> {
           ),
         ),
         IconButton(
-          icon: Icon(Icons.cancel),
+          icon: const Icon(Icons.cancel),
           onPressed: () {
             setState(() {
               _isSearching = false;
@@ -82,7 +87,7 @@ class _MyAppBarState extends State<MyAppBar> {
     } else {
       return [
         IconButton(
-          icon: Icon(Icons.search_rounded),
+          icon: const Icon(Icons.search_rounded),
           onPressed: () {
             setState(() {
               _isSearching = true;
@@ -90,17 +95,25 @@ class _MyAppBarState extends State<MyAppBar> {
           },
         ),
         IconButton(
-          icon: Icon(Icons.person),
-          onPressed: () {
+          icon: const Icon(Icons.person),
+          onPressed: () async {
+
+
+
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Profil()),
+              MaterialPageRoute(builder: (context) => Profil( )),
             );
           },
         ),
         IconButton(
-          icon: Icon(Icons.logout_outlined),
-          onPressed: () {},
+          icon: const Icon(Icons.logout_outlined),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginPage()),
+            );
+          },
         ),
       ];
     }
