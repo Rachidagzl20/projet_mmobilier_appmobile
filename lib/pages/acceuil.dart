@@ -65,7 +65,7 @@ class _myacceuilState extends State<myacceuil> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
-                  offset: Offset(0, 0.5), // changes position of shadow
+                  offset: const Offset(0, 0.5), // changes position of shadow
                 ),
               ],
             ),
@@ -79,7 +79,7 @@ class _myacceuilState extends State<myacceuil> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
                           CircleAvatar(
@@ -106,7 +106,7 @@ class _myacceuilState extends State<myacceuil> {
                     Directionality(
                       textDirection: TextDirection.rtl,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Row(
                           children:  [
 

@@ -42,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
       String data= response.body;
       Map<String, dynamic> decodedToken = jsonDecode(data);
       String email = decodedToken['email'];
+      String userID = decodedToken['userID'];
       String nomComplet = decodedToken['nomComplet'];
       String adresse = decodedToken['adresse'];
       String image = decodedToken['image'];
@@ -55,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
       prefs.setString('adresse', adresse);
       prefs.setString('image', image);
       prefs.setString('CIN', CIN);
+      prefs.setString('userID', userID);
       prefs.setString('telephone', telephone);
 
 
@@ -62,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
 
       // Compare the stored token with the response body
       if (data == response.body) {
-        print('Token stored successfully: $email');
+        print('Token stored successfully: $userID');
 
 
       } else {
@@ -71,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Home(),
+          builder: (context) => const Home(),
         ),
       );
     } else if (response.statusCode == 403) {
@@ -80,14 +82,14 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Error'),
-            content: Text('Invalid username or password'),
+            title: const Text('Error'),
+            content: const Text('Invalid username or password'),
             actions: <Widget>[
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -129,8 +131,8 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
+              const Padding(
+                padding: EdgeInsets.only(top: 20.0),
                 child: Text(
                   "AUTHENTIFICATION",
                   style: TextStyle(
@@ -157,8 +159,8 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 200.0),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 200.0),
                             child: Text(
                               "Nom d’utilisateur",
                               style: TextStyle(
@@ -166,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 3),
+                          const SizedBox(height: 3),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(15, 1, 15, 0),
                             child: Theme(
@@ -174,20 +176,20 @@ class _LoginPageState extends State<LoginPage> {
                                 inputDecorationTheme: InputDecorationTheme(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(width: 1, color: AppColors.primary),
+                                    borderSide: const BorderSide(width: 1, color: AppColors.primary),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide(width: 1, color: AppColors.accent)),
+                                      borderSide: const BorderSide(width: 1, color: AppColors.accent)),
                                   errorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(color: Colors.red, width: 1),
+                                    borderSide: const BorderSide(color: Colors.red, width: 1),
                                   ),
                                 ),
                               ),
                               child: TextFormField(
                                 controller: _usernameController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.person,
                                     color: AppColors.primary,
@@ -203,9 +205,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 6),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 225.0),
+                          const SizedBox(height: 6),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 225.0),
                             child: Text(
                               "Mot de passe",
                               style: TextStyle(
@@ -213,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 3),
+                          const SizedBox(height: 3),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 15.0),
                             child: Theme(
@@ -221,13 +223,13 @@ class _LoginPageState extends State<LoginPage> {
                                 inputDecorationTheme: InputDecorationTheme(
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide(width: 1, color: AppColors.primary)),
+                                      borderSide: const BorderSide(width: 1, color: AppColors.primary)),
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide(width: 1, color: AppColors.accent)),
+                                      borderSide: const BorderSide(width: 1, color: AppColors.accent)),
                                   errorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(color: Colors.red, width: 1),
+                                    borderSide: const BorderSide(color: Colors.red, width: 1),
                                   ),
                                 ),
                               ),
@@ -242,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
                                 obscureText: !_showPassword,
                                 cursorColor: Colors.blueAccent,
                                 decoration: InputDecoration(
-                                  prefixIcon: Icon(
+                                  prefixIcon: const Icon(
                                     Icons.lock,
                                     color: AppColors.primary,
                                   ),
@@ -291,7 +293,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   );
                                 },
-                                child: Text(
+                                child: const Text(
                                   "Forgot password ?",
                                   style: TextStyle(
                                     color: AppColors.primary,
@@ -301,7 +303,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           ElevatedButton(
                             onPressed: () {
                               _login();
@@ -321,7 +323,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                EdgeInsets.symmetric(horizontal: 90, vertical: 14),
+                                const EdgeInsets.symmetric(horizontal: 90, vertical: 14),
                               ),
                             ),
                             child: Row(
@@ -351,7 +353,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                EdgeInsets.symmetric(horizontal: 70, vertical: 14),
+                                const EdgeInsets.symmetric(horizontal: 70, vertical: 14),
                               ),
                             ),
                             child: Row(

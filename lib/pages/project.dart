@@ -32,12 +32,12 @@ class _ProjectState extends State<Project> {
 @override
 Widget build(BuildContext context) {
   return Scaffold(
-    appBar: MyAppBar(),
+    appBar: const MyAppBar(),
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text(
             'VOUS ETES IMPLIQUE \nDANS CES PROJETS',
             style: TextStyle(
@@ -66,7 +66,7 @@ Widget build(BuildContext context) {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
-                          offset: Offset(0, 3),
+                          offset: const Offset(0, 3),
                         ),
                       ],
                     ),
@@ -94,7 +94,7 @@ Widget build(BuildContext context) {
                       ),
 
                       title: Text(project['title'],
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),),
                       subtitle: Padding(
@@ -106,7 +106,7 @@ Widget build(BuildContext context) {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
 
-                                  SizedBox(height: 4.0),
+                                  const SizedBox(height: 4.0),
                                   Stack(
 
                                     children: [
@@ -118,7 +118,7 @@ Widget build(BuildContext context) {
                                           value: project['etats_de_projet'] / 100,
                                           backgroundColor: Colors.grey,
                                           strokeWidth: 6.0,
-                                          valueColor: AlwaysStoppedAnimation<Color>(
+                                          valueColor: const AlwaysStoppedAnimation<Color>(
                                             AppColors.primary, //<-- SEE HERE
                                           ),
                                         ),
@@ -128,7 +128,7 @@ Widget build(BuildContext context) {
                                       Center(
                                         child: Text(
                                           '${project['etats_de_projet']}%',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 10.0,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.primary,
@@ -137,8 +137,8 @@ Widget build(BuildContext context) {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 7.0),
-                                  Text(
+                                  const SizedBox(height: 7.0),
+                                  const Text(
                                     'ETATS DE PROJET',
                                     style: TextStyle(
                                       fontSize: 8.0,
@@ -155,7 +155,7 @@ Widget build(BuildContext context) {
                                 CrossAxisAlignment.start,
                                 children: [
 
-                                  SizedBox(height: 4.0),
+                                  const SizedBox(height: 4.0),
                                   Stack(
                                     children: [
                                       Container(
@@ -166,7 +166,7 @@ Widget build(BuildContext context) {
                                               100,
                                           backgroundColor: Colors.grey,
                                           strokeWidth: 6.0,
-                                          valueColor: AlwaysStoppedAnimation<Color>(
+                                          valueColor: const AlwaysStoppedAnimation<Color>(
                                             Colors.red, //<-- SEE HERE
                                           ),
                                         ),
@@ -174,7 +174,7 @@ Widget build(BuildContext context) {
                                       Center(
                                         child: Text(
                                           '${project['taux_de_paiement']}%',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 10.0,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.primary,
@@ -183,8 +183,8 @@ Widget build(BuildContext context) {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 7.0),
-                                  Text(
+                                  const SizedBox(height: 7.0),
+                                  const Text(
                                     'TAUX DE PAIEMENT',
                                     style: TextStyle(
                                       fontSize: 8.0,
@@ -211,17 +211,17 @@ Widget build(BuildContext context) {
                             children: [
                               Text(
                                 project['project_name'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 13.0,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
                               ),
-                              SizedBox(height: 9.0,),
+                              const SizedBox(height: 9.0,),
 
                               Text(
                                 project['project_number'].toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,

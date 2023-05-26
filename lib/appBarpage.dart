@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:projet_mmobilier_appmobile/pages/login.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'pages/profil.dart';
 import 'package:projet_mmobilier_appmobile/utils/app_color.dart';

@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 import 'acceuil.dart';
 
 class Profil extends StatefulWidget {
+  const Profil({super.key});
+
 
 
   @override
@@ -24,60 +26,85 @@ class _ProfilState extends State<Profil> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _CINcontroller = TextEditingController();
 
-  late String? clientName;
+  late String? clientName ="";
+  late String? userId ="" ;
 
   @override
   void initState() {
     super.initState();
     // Fetch user data on screen initialization
-    _getEmailFromSharedPreferences();
+    _getClientDataFromSharedPreferences();
 
 
   }
+
+  Future<void> _fetchClientData() async {
+    try {
+      // Make the HTTP GET request to fetch the user data
+      var response = await http.get(
+        Uri.parse('http://localhost:3000/client/$userId'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var responseData = jsonDecode(response.body);
+        var updatedEmail = responseData['email'];
+        clientName= responseData['nomComplet'];
+        var updatedAdresse = responseData['adresse'];
+        var updatedPhone = responseData['telephone'];
+        var updateCIN = responseData['CIN'];
+
+        setState(() {
+          _emailController.text = updatedEmail;
+          _nomCompletController.text = clientName.toString();
+          _adressController.text = updatedAdresse;
+          _phoneController.text = updatedPhone;
+          _CINcontroller.text = updateCIN;
+        });
+      } else {
+        print("Error fetching user data");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
   // Retrieve email from SharedPreferences
-  Future<void> _getEmailFromSharedPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String storedEmail = prefs.getString('email') ?? '';
+  Future<void> _getClientDataFromSharedPreferences()  async {
+    SharedPreferences prefs =  await SharedPreferences.getInstance();
     clientName = prefs.getString('nomComplet') ?? '';
-    String storedadress = prefs.getString('adresse') ?? '';
-    String storedCIN= prefs.getString('CIN') ?? '';
-    String storedphone = prefs.getString('telephone') ?? '';
+    userId = prefs.getString('userID')?? '';
+    _fetchClientData();
 
-
-    setState(() {
-      _emailController.text = storedEmail;
-      _nomCompletController.text=clientName.toString();
-      _adressController.text=storedadress;
-      _phoneController.text=storedphone;
-      _CINcontroller.text=storedCIN;
-
-    });
   }
   // update  Data client
-  Future<void> _updateUserData() async {
-    // Get the updated values from the form fields
-    String updatedNomComplet = _nomCompletController.text;
-    String updatedAdresse = _adressController.text;
-    String updatedEmail = _emailController.text;
-    String updateCIN=_CINcontroller.text;
-    String updatedphone=_phoneController.text;
-    // ... Get other updated values
 
-    // Update the user data in the database
+
+  Future<void> _updateUserData(String updatedNomComplet,String updatedAdresse,String updatedEmail,String updateCIN,String updatedPhone ) async {
+    // Get the updated values from the form fields
+    updatedNomComplet = _nomCompletController.text;
+    updatedAdresse = _adressController.text;
+    updatedEmail = _emailController.text;
+    updateCIN = _CINcontroller.text;
+    updatedPhone = _phoneController.text;
+
     try {
       // Prepare the request body as per your API requirements
       var requestBody = {
         'nomComplet': updatedNomComplet,
         'adresse': updatedAdresse,
         'email': updatedEmail,
-        'telephone': updatedphone,
+        'telephone': updatedPhone,
         'CIN': updateCIN,
-        // ... Add other fields telephone ,password
+        // ... Add other fields telephone, password
       };
 
       // Make the HTTP PUT request to update the user data
       var response = await http.put(
-        Uri.parse('http://localhost:3000/client/api/updClient'),
+        Uri.parse('http://localhost:3000/client/updClient/$userId'),
         headers: {
           'Content-Type': 'application/json',
           // Add any other required headers
@@ -86,15 +113,18 @@ class _ProfilState extends State<Profil> {
       );
 
       if (response.statusCode == 200) {
-        print("update Data");
+        print("update successful ");
+
+        // Fetch the updated user data after a successful update
+        await _fetchClientData();
       } else {
         print("Error updating user data");
       }
     } catch (e) {
-      // Exception occurred during the request
-      // Handle the exception and display an error message or perform any other error handling
+     print(e);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -349,68 +379,61 @@ class _ProfilState extends State<Profil> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            height: 50,
-                            width: 153,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                //TODO: Implement cancel functionality
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.primary,
 
-                                shape: RoundedRectangleBorder(
-
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                              ),
-                              child: const Text('Annuler',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          SizedBox(
-                            height: 50,
-                            width: 140,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                _updateUserData;
-
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('success'),
-                                      content: Text('update successful'),
-                                      actions: <Widget>[
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text('OK'),
-                                        ),
-                                      ],
-                                    );
-                                  },
+                        SizedBox(
+                        height: 50,
+                        width: 153,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Confirmation"),
+                                  content: const Text(
+                                    "Voulez-vous vraiment enregistrer les modifications ?",
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("Non"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        _updateUserData(
+                                          _nomCompletController.text,
+                                          _adressController.text,
+                                          _emailController.text,
+                                          _CINcontroller.text,
+                                          _phoneController.text,
+                                        );
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("Oui"),
+                                    ),
+                                  ],
                                 );
-                                //TODO: Implement save functionality
                               },
-                              style: ElevatedButton.styleFrom(
-                                primary: AppColors.primary,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                              ),
-                              child: const Text('Sauvegarder',
-                                  style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              )),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
                             ),
                           ),
+                          child: const Text(
+                            'Sauvegarder',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+
                         ],
                       ),
                     ),
