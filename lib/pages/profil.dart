@@ -213,25 +213,21 @@ class _ProfilState extends State<Profil> {
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: Column(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(right: 200.0),
-                      child: Text(
-                        "Nom Complet",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
 
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 20,),
                     TextFormField(
                       cursorColor: AppColors.primary,
                       cursorHeight: 23,
                       controller: _nomCompletController,
                       decoration: InputDecoration(
 
+                        labelText: "Nom Complet",
 
+                        labelStyle: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,// Add your desired color here
+                        ),
                         prefixIcon: const Icon(Icons.person,
                         color: AppColors.primary,),
                         enabledBorder: OutlineInputBorder(
@@ -244,28 +240,24 @@ class _ProfilState extends State<Profil> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 260.0),
-                      child: Text(
-                        "Email",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
 
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 20,),
                     TextFormField(
+
                       controller: _emailController,
                       cursorColor: AppColors.primary,
                       cursorHeight: 23,
 
                       decoration: InputDecoration(
-
                         prefixIcon: const Icon(Icons.email,
                             color: AppColors.primary),
+                        labelText: "Email",
+
+                        labelStyle: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,// Add your desired color here
+                        ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(40),
                             borderSide: const BorderSide(width: 1, color:AppColors.primary ),
@@ -276,19 +268,8 @@ class _ProfilState extends State<Profil> {
                           ),
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 180.0),
-                      child: Text(
-                        "Numéro de téléphone",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
 
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
 
                     TextFormField(
                       cursorColor: AppColors.primary,
@@ -296,7 +277,13 @@ class _ProfilState extends State<Profil> {
                       controller: _phoneController,
 
                       decoration: InputDecoration(
+                        labelText: "Numéro de téléphone",
 
+                        labelStyle: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,// Add your desired color here
+                        ),
                         prefixIcon: const Icon(Icons.phone,
                             color: AppColors.primary),
                           enabledBorder: OutlineInputBorder(
@@ -309,26 +296,21 @@ class _ProfilState extends State<Profil> {
                           ),
                       ),
                     ),
-                    const SizedBox(height: 10,),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 260.0),
-                      child: Text(
-                        "CIN",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
 
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 20,),
                     TextFormField(
                       cursorColor: AppColors.primary,
                       cursorHeight: 23,
                         controller:_CINcontroller,
 
                       decoration: InputDecoration(
+                        labelText: "CIN",
 
+                        labelStyle: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,// Add your desired color here
+                        ),
                         prefixIcon: const Icon(Icons.date_range,
                             color: AppColors.primary),
                         enabledBorder: OutlineInputBorder(
@@ -341,19 +323,8 @@ class _ProfilState extends State<Profil> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 260.0),
-                      child: Text(
-                        "Adresse",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
 
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 20,),
 
                     TextFormField(
                       cursorColor: AppColors.primary,
@@ -361,7 +332,13 @@ class _ProfilState extends State<Profil> {
                       controller: _adressController,
 
                       decoration: InputDecoration(
+                        labelText: "Adresse",
 
+                        labelStyle: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,// Add your desired color here
+                        ),
                         prefixIcon: const Icon(Icons.location_on,
                         color: AppColors.primary,),
                           enabledBorder: OutlineInputBorder(
@@ -380,59 +357,62 @@ class _ProfilState extends State<Profil> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
 
-                        SizedBox(
-                        height: 50,
-                        width: 153,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text("Confirmation"),
-                                  content: const Text(
-                                    "Voulez-vous vraiment enregistrer les modifications ?",
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text("Non"),
+                        Center(
+                          child: SizedBox(
+                          height: 50,
+                          width: 153,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text("Confirmation"),
+                                    content: const Text(
+                                      "Voulez-vous vraiment enregistrer les modifications ?",
                                     ),
-                                    TextButton(
-                                      onPressed: () {
-                                        _updateUserData(
-                                          _nomCompletController.text,
-                                          _adressController.text,
-                                          _emailController.text,
-                                          _CINcontroller.text,
-                                          _phoneController.text,
-                                        );
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text("Oui"),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          _fetchClientData();
+                                        },
+                                        child: const Text("Non"),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          _updateUserData(
+                                            _nomCompletController.text,
+                                            _adressController.text,
+                                            _emailController.text,
+                                            _CINcontroller.text,
+                                            _phoneController.text,
+                                          );
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("Oui"),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            ),
+                            child: const Text(
+                              'Sauvegarder',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
-                          child: const Text(
-                            'Sauvegarder',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
                       ),
+                        ),
 
                         ],
                       ),
