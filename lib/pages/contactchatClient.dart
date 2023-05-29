@@ -1,68 +1,109 @@
 import 'package:flutter/material.dart';
 
-class ContactsScreen extends StatefulWidget {
+import '../utils/app_color.dart';
+
+class contacterClient extends StatefulWidget {
+  final String adminName;
+  final String adminImage;
+
+  contacterClient({Key? key, required this.adminName, required this.adminImage})
+      : super(key: key);
+
   @override
-  _ContactsScreenState createState() => _ContactsScreenState();
+  _contacterClientState createState() => _contacterClientState();
 }
 
-class _ContactsScreenState extends State<ContactsScreen> {
-  List<Contact> admins = [
-    Contact(
-      name: 'Admin 1',
-      lastMessage: 'Hello!',
-      avatarUrl: 'https://example.com/avatar1.png',
-    ),
-    Contact(
-      name: 'Admin 2',
-      lastMessage: 'Welcome!',
-      avatarUrl: 'https://example.com/avatar2.png',
-    ),
-    Contact(
-      name: 'Admin 3',
-      lastMessage: 'How can I help?',
-      avatarUrl: 'https://example.com/avatar3.png',
-    ),
-  ];
+class _contacterClientState extends State<contacterClient> {
+  final TextEditingController _textEditingController = TextEditingController();
+  final List<String> _messages = [];
+
+  void sendMessage() {
+    final message = _textEditingController.text.trim();
+    if (message.isNotEmpty) {
+      setState(() {
+        _messages.insert(0, message); // Insert message at the beginning
+      });
+      _textEditingController.clear();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contacts'),
-      ),
-      body: ListView.builder(
-        itemCount: admins.length,
-        itemBuilder: (context, index) {
-          Contact admin = admins[index];
-          return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(admin.avatarUrl),
+        backgroundColor: AppColors.primary,
+        title: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: AssetImage(widget.adminImage),
             ),
-            title: Text(admin.name),
-            subtitle: Text(admin.lastMessage),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Chat(admin: admin),
+            const SizedBox(width: 8),
+            Text(widget.adminName),
+          ],
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              reverse: true, // Start from bottom
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                final message = _messages[index];
+                return ListTile(
+                  title: Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        message,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                  offset: const Offset(0, -2),
                 ),
-              );
-            },
-          );
-        },
+              ],
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _textEditingController,
+                    decoration: const InputDecoration(
+                      hintText: 'Type a message',
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.send),
+                  onPressed: sendMessage,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class Contact {
-  final String name;
-  final String lastMessage;
-  final String avatarUrl;
 
-  Contact({
-    required this.name,
-    required this.lastMessage,
-    required this.avatarUrl,
-  });
-}

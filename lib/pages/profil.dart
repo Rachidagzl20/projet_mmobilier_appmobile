@@ -42,7 +42,7 @@ class _ProfilState extends State<Profil> {
     try {
       // Make the HTTP GET request to fetch the user data
       var response = await http.get(
-        Uri.parse('http://192.168.1.15:3000/client/$userId'),
+        Uri.parse('http://192.168.137.1:3000/client/$userId'),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -101,7 +101,7 @@ class _ProfilState extends State<Profil> {
 
       // Make the HTTP PUT request to update the user data
       var response = await http.put(
-        Uri.parse('http://192.168.1.15:3000/client/updClient/$userId'),
+        Uri.parse('http://192.168.137.1:3000/client/updClient/$userId'),
         headers: {
           'Content-Type': 'application/json',
           // Add any other required headers

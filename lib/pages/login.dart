@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     };
 
     // Make the HTTP POST request to your Node.js server
-    Uri url = Uri.parse('http://192.168.1.15:3000/auth/login');
+    Uri url = Uri.parse('http://192.168.137.1:3000/auth/login');
     http.Response response = await http.post(url, body: body);
 
     // Handle the response
