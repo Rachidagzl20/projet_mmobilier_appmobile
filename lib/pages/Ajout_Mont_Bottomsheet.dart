@@ -28,7 +28,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
               color: Colors.white,
             )),
         Container(
-          height: MediaQuery.of(context).size.height * 0.9,
+          height: MediaQuery.of(context).size.height * 0.76,
           decoration: const BoxDecoration(
             color: Color(0xFF100DB1),
             borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
