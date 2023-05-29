@@ -6,7 +6,7 @@ import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'acceuil.dart';
-
+import 'package:image_picker/image_picker.dart';
 class Profil extends StatefulWidget {
   const Profil({super.key});
 
@@ -37,12 +37,12 @@ class _ProfilState extends State<Profil> {
 
 
   }
-
+  // fetch user Data
   Future<void> _fetchClientData() async {
     try {
       // Make the HTTP GET request to fetch the user data
       var response = await http.get(
-        Uri.parse('http://localhost:3000/client/$userId'),
+        Uri.parse('http://192.168.1.15:3000/client/$userId'),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -71,8 +71,7 @@ class _ProfilState extends State<Profil> {
     }
   }
 
-
-  // Retrieve email from SharedPreferences
+  // Retrieve Client Data from SharedPreferences
   Future<void> _getClientDataFromSharedPreferences()  async {
     SharedPreferences prefs =  await SharedPreferences.getInstance();
     clientName = prefs.getString('nomComplet') ?? '';
@@ -81,8 +80,6 @@ class _ProfilState extends State<Profil> {
 
   }
   // update  Data client
-
-
   Future<void> _updateUserData(String updatedNomComplet,String updatedAdresse,String updatedEmail,String updateCIN,String updatedPhone ) async {
     // Get the updated values from the form fields
     updatedNomComplet = _nomCompletController.text;
@@ -104,7 +101,7 @@ class _ProfilState extends State<Profil> {
 
       // Make the HTTP PUT request to update the user data
       var response = await http.put(
-        Uri.parse('http://localhost:3000/client/updClient/$userId'),
+        Uri.parse('http://192.168.1.15:3000/client/updClient/$userId'),
         headers: {
           'Content-Type': 'application/json',
           // Add any other required headers
@@ -122,6 +119,21 @@ class _ProfilState extends State<Profil> {
       }
     } catch (e) {
      print(e);
+    }
+  }
+// select image from galery function
+  Future<void> _selectImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      // Use the selected image here as per your requirements
+      // For example, you can update the profile picture with the selected image
+      setState(() {
+        // Update the profile picture with the selected image
+        // For example:
+        // _profileImage = File(image.path);
+      });
     }
   }
 
@@ -170,7 +182,7 @@ class _ProfilState extends State<Profil> {
                     backgroundColor: AppColors.primarygreen,
                     child: CircleAvatar(
                       radius: 57,
-                      backgroundImage: AssetImage('assets/profil_img.jpg'),
+                      backgroundImage: AssetImage('assets/profile_img.png'),
                     ),
                   ),
                   Positioned(
@@ -192,6 +204,7 @@ class _ProfilState extends State<Profil> {
                         icon: const Icon(Icons.edit,
                         color: Colors.white,),
                         onPressed: () {
+                          _selectImage();
                           // Add your edit profile picture logic here
                         },
 

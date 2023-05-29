@@ -18,11 +18,11 @@ class _HomeState extends State<Home> {
   final List<Widget> screens = [
     const myacceuil(),
     const Project(),
-    const Chat(),
+    Chat(),
     NotificationPage(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = myacceuil();
+  Widget currentScreen = const myacceuil();
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +42,8 @@ class _HomeState extends State<Home> {
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
-              shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.vertical(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
                   top: Radius.circular(40.0),
                 ),
               ),
@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
               ),
             );
           },
-          child: Icon(
+          child: const Icon(
             Icons.add,
           ),
           backgroundColor: AppColors.primary,
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         clipBehavior: Clip.hardEdge, //or better look(and cost) using Clip.antiAlias,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(24),
             topLeft: Radius.circular(24),
@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
         ),
         child: BottomAppBar(
               color: AppColors.primary,
-              shape: CircularNotchedRectangle(),
+              shape: const CircularNotchedRectangle(),
               notchMargin: 3.0,
               child: Container(
                 height: 60,
@@ -85,31 +85,34 @@ class _HomeState extends State<Home> {
                           minWidth: 40,
                           onPressed: () {
                             setState(() {
-                              currentScreen = myacceuil();
+                              currentScreen = const myacceuil();
                               currentTab = 0;
                             });
                           },
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.home_outlined,
-                                size: 34.0,
-                                color: currentTab == 0
-                                    ? Colors.white60
-                                    : Colors.white,
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Icon(
+                                  Icons.home_outlined,
+                                  size: 34.0,
+                                  color: currentTab == 0
+                                      ? Colors.white60
+                                      : Colors.white,
+                                ),
                               )
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 29.0,
                         ),
                         MaterialButton(
                           minWidth: 40,
                           onPressed: () {
                             setState(() {
-                              currentScreen = Project();
+                              currentScreen = const Project();
                               currentTab = 1;
                             });
                           },
@@ -136,7 +139,7 @@ class _HomeState extends State<Home> {
                           minWidth: 40,
                           onPressed: () {
                             setState(() {
-                              currentScreen = Chat();
+                              currentScreen =  Chat();
                               currentTab = 2;
                             });
                           },
@@ -153,7 +156,7 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 29.0,
                         ),
                         MaterialButton(
@@ -167,12 +170,15 @@ class _HomeState extends State<Home> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.notifications,
-                                size: 30.0,
-                                color: currentTab == 3
-                                    ? Colors.white60
-                                    : Colors.white,
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10.0),
+                                child: Icon(
+                                  Icons.notifications,
+                                  size: 30.0,
+                                  color: currentTab == 3
+                                      ? Colors.white60
+                                      : Colors.white,
+                                ),
                               )
                             ],
                           ),

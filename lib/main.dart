@@ -10,14 +10,14 @@ import 'pages/Start_page.dart';
 import 'pages/getStartedPage.dart';
 
  main() => runApp(MaterialApp(
-    localizationsDelegates: [
+    localizationsDelegates: const [
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
     ],
-    supportedLocales: [
-      const Locale('en'), // English
-      const Locale('ar'), // Arabic
+    supportedLocales: const [
+      Locale('en'), // English
+      Locale('ar'), // Arabic
     ],
     routes: {
       "/": (context) => StartPage(),

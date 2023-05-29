@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  //login Function
   Future<void> _login() async {
     String username = _usernameController.text;
     String password = _passwordController.text;
@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     };
 
     // Make the HTTP POST request to your Node.js server
-    Uri url = Uri.parse('http://localhost:3000/auth/login');
+    Uri url = Uri.parse('http://192.168.1.15:3000/auth/login');
     http.Response response = await http.post(url, body: body);
 
     // Handle the response
@@ -97,7 +97,6 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
   }
-
   // Button Support
   void openWhatsApp() async {
     String phoneNumber = '0689675163'; // WhatsApp phone number
@@ -114,6 +113,7 @@ class _LoginPageState extends State<LoginPage> {
 
   bool _rememberMe = false;
   bool _showPassword = false;
+  //show visibility password
   void _toggleVisibility() {
     setState(() {
       _showPassword = !_showPassword;
@@ -132,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Padding(
-                padding: EdgeInsets.only(top: 20.0),
+                padding: EdgeInsets.only(top: 37.0),
                 child: Text(
                   "AUTHENTIFICATION",
                   style: TextStyle(
@@ -143,11 +143,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 1.0),
+                padding: const EdgeInsets.only(top: 2.0),
                 child: Image.asset(
                   'assets/img_Auth.png',
-                  width: 250,
-                  height: 250,
+                  width: 280,
+                  height: 280,
                 ),
               ),
               Padding(
@@ -174,6 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: Theme(
                               data: Theme.of(context).copyWith(
                                 inputDecorationTheme: InputDecorationTheme(
+
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(30),
                                     borderSide: const BorderSide(width: 1, color: AppColors.primary),

@@ -53,10 +53,10 @@ Widget build(BuildContext context) {
             itemBuilder: (BuildContext context, int index) {
               final project = projectList[index];
               return GestureDetector(
-                
+
 
                 child: Padding(
-                  padding: const EdgeInsets.all(7.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -125,13 +125,16 @@ Widget build(BuildContext context) {
                                       ),
 
 
-                                      Center(
-                                        child: Text(
-                                          '${project['etats_de_projet']}%',
-                                          style: const TextStyle(
-                                            fontSize: 10.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColors.primary,
+                                      Padding(
+                                        padding: const EdgeInsets.only(left:8.0),
+                                        child: Center(
+                                          child: Text(
+                                            '${project['etats_de_projet']}%',
+                                            style: const TextStyle(
+                                              fontSize: 10.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.primary,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -171,13 +174,16 @@ Widget build(BuildContext context) {
                                           ),
                                         ),
                                       ),
-                                      Center(
-                                        child: Text(
-                                          '${project['taux_de_paiement']}%',
-                                          style: const TextStyle(
-                                            fontSize: 10.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColors.primary,
+                                      Padding(
+                                        padding: const EdgeInsets.only(left:8.0 ),
+                                        child: Center(
+                                          child: Text(
+                                            '${project['taux_de_paiement']}%',
+                                            style: const TextStyle(
+                                              fontSize: 10.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.primary,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -199,8 +205,8 @@ Widget build(BuildContext context) {
                         ),
                       ),
                       trailing: Container(
-                        width: 60,
-                        height: 60,
+                        width: 50,
+                        height: 50,
                         decoration: BoxDecoration(
                           color: AppColors.primary,
                           borderRadius: BorderRadius.circular(8.0),
@@ -212,7 +218,7 @@ Widget build(BuildContext context) {
                               Text(
                                 project['project_name'],
                                 style: const TextStyle(
-                                  fontSize: 13.0,
+                                  fontSize: 10.0,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
@@ -222,7 +228,7 @@ Widget build(BuildContext context) {
                               Text(
                                 project['project_number'].toString(),
                                 style: const TextStyle(
-                                  fontSize: 16.0,
+                                  fontSize: 10.0,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),

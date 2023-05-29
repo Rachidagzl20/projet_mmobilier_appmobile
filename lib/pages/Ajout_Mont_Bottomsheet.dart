@@ -28,17 +28,17 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
               color: Colors.white,
             )),
         Container(
-          height: MediaQuery.of(context).size.height * 0.7,
-          decoration: BoxDecoration(
+          height: MediaQuery.of(context).size.height * 0.9,
+          decoration: const BoxDecoration(
             color: Color(0xFF100DB1),
             borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
           ),
           child: Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Align(
+                const Align(
                   alignment: Alignment.topCenter,
                   child: Text(
                     'AJOUTER UN MONTANT',
@@ -49,11 +49,11 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 250.0),
+                const Padding(
+                  padding: EdgeInsets.only(right: 250.0),
                   child: Text(
                     "MONTANT",
                     style: TextStyle(
@@ -62,7 +62,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 SizedBox(
@@ -78,15 +78,15 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                       ),
                     ),
                     keyboardType:
-                    TextInputType.numberWithOptions(decimal: true),
-                    style: TextStyle(
+                    const TextInputType.numberWithOptions(decimal: true),
+                    style: const TextStyle(
                       color: Colors.white, // set the color to red
                     ),
                   ),
                 ),
-                SizedBox(height: 20.0),
-                Padding(
-                  padding: const EdgeInsets.only(right: 269.0),
+                const SizedBox(height: 20.0),
+                const Padding(
+                  padding: EdgeInsets.only(right: 269.0),
                   child: Text(
                     "MOTIF",
                     style: TextStyle(
@@ -95,7 +95,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 SizedBox(
@@ -113,9 +113,9 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20.0),
-                Padding(
-                  padding: const EdgeInsets.only(right: 260.0),
+                const SizedBox(height: 20.0),
+                const Padding(
+                  padding: EdgeInsets.only(right: 260.0),
                   child: Text(
                     "PROJET",
                     style: TextStyle(
@@ -124,7 +124,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 SizedBox(
@@ -149,9 +149,9 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                     onChanged: (value) {},
                   ),
                 ),
-                SizedBox(height: 10.0),
-                Padding(
-                  padding: const EdgeInsets.only(right: 150.0),
+                const SizedBox(height: 10.0),
+                const Padding(
+                  padding: EdgeInsets.only(right: 150.0),
                   child: Text(
                     "LA PREUVE BANCAIRE",
                     style: TextStyle(
@@ -160,7 +160,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 GestureDetector(
@@ -168,22 +168,24 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                   child: Container(
                     width: double.infinity,
                     height: 100,
-                    padding: EdgeInsets.fromLTRB(10.0, 5, 10.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(10.0, 5, 10.0, 0.0),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16.0),
                     ),
                     child: Column(
-                      children: [
+                      children: const [
                         Icon(
                           Icons.cloud_upload_outlined,
                           size: 42,
                         ),
                         SizedBox(height: 5.0),
-                        Text(
-                          'Déposez des fichiers ou Parcourez',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
+                        Center(
+                          child: Text(
+                            'Déposez des fichiers ou Parcourez',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
                         ),
                         SizedBox(height: 5.0),
                         Text(
@@ -196,15 +198,25 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20.0),
+                const SizedBox(height: 20.0),
                 SizedBox(
                   height: 40,
                   width: 300,
                   child: ElevatedButton(
                     onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: AppColors.primary,
+                      // set the background color
+                      side: const BorderSide(color: Colors.white, width: 2),
+                      // set the border color and width
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.circular(30), // set the border radius
+                      ),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                      children: const [
                         Align(
                           alignment: Alignment.center,
                           child: Text(
@@ -217,16 +229,6 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                         ),
                         Icon(Icons.arrow_forward),
                       ],
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: AppColors.primary,
-                      // set the background color
-                      side: BorderSide(color: Colors.white, width: 2),
-                      // set the border color and width
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                        BorderRadius.circular(30), // set the border radius
-                      ),
                     ),
                   ),
                 ),
