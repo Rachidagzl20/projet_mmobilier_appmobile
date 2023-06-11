@@ -5,8 +5,9 @@ import '../appBarpage.dart';
 
 class ProDetailspage extends StatelessWidget {
   final Map<String, dynamic> item;
+  final String image;
 
-  ProDetailspage({Key? key, required this.item, required id}) : super(key: key);
+  const ProDetailspage({Key? key, required this.item, required this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class ProDetailspage extends StatelessWidget {
         backgroundColor: AppColors.primary,
         elevation: 0,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.logout_outlined)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.logout_outlined)),
         ],
       ),
       body: SingleChildScrollView(
@@ -27,23 +28,23 @@ class ProDetailspage extends StatelessWidget {
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Image.asset(
-                  item['image'],
+                  item['logo'],
                   width: 100,
                   height: 100,
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Text(
               item['title'],
-              style: TextStyle(
+              style: const TextStyle(
                   color: AppColors.primary,
                   fontWeight: FontWeight.bold,
                   fontSize: 25.0),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             ),
             Container(
@@ -56,14 +57,14 @@ class ProDetailspage extends StatelessWidget {
                   BoxShadow(
                     color: Colors.black.withOpacity(0.5),
                     blurRadius: 5,
-                    offset: Offset(2, 2),
+                    offset: const Offset(2, 2),
                   ),
                 ],
               ),
               child: Center(
                 child: Text(
                   "${item['etats_de_projet'].toString()}%",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -71,7 +72,7 @@ class ProDetailspage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             ),
             Padding(
@@ -86,12 +87,12 @@ class ProDetailspage extends StatelessWidget {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.5),
                       blurRadius: 5,
-                      offset: Offset(2, 2),
+                      offset: const Offset(2, 2),
                     ),
                   ],
                 ),
                 child: Column(
-                  children: [
+                  children: const [
                     Text("HISTORIQUES ",
                       style: TextStyle(
                         color: Colors.red,

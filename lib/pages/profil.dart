@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -6,6 +7,8 @@ import 'package:projet_mmobilier_appmobile/utils/app_color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'acceuil.dart';
+import 'dart:io';
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 class Profil extends StatefulWidget {
   const Profil({super.key});
@@ -28,6 +31,7 @@ class _ProfilState extends State<Profil> {
 
   late String? clientName ="";
   late String? userId ="" ;
+  late String? ImageId="";
 
   @override
   void initState() {
@@ -55,6 +59,7 @@ class _ProfilState extends State<Profil> {
         var updatedAdresse = responseData['adresse'];
         var updatedPhone = responseData['telephone'];
         var updateCIN = responseData['CIN'];
+        ImageId=responseData['image'];
 
         setState(() {
           _emailController.text = updatedEmail;
@@ -122,20 +127,42 @@ class _ProfilState extends State<Profil> {
     }
   }
 // select image from galery function
+
+
+
   Future<void> _selectImage() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
-      // Use the selected image here as per your requirements
-      // For example, you can update the profile picture with the selected image
-      setState(() {
-        // Update the profile picture with the selected image
-        // For example:
-        // _profileImage = File(image.path);
-      });
+
+
+      var response = await http.post(
+        Uri.parse('http://192.168.137.1:3000/image/upload'),
+        body: {'filename': image.name,"path":image.path},
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+        print(jsonResponse);
+        var newImageId = jsonResponse['imageId'] as String;
+        print(newImageId);
+        // Update the client's image ID with the new ID (newImageId)
+        setState(() {
+          ImageId = newImageId;
+        });
+      }
     }
   }
+
+
+
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -177,12 +204,12 @@ class _ProfilState extends State<Profil> {
                 alignment: Alignment.bottomRight,
                 children: [
 
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 60,
                     backgroundColor: AppColors.primarygreen,
                     child: CircleAvatar(
-                      radius: 57,
-                      backgroundImage: AssetImage('assets/profile_img.png'),
+                      radius: 60,
+                      backgroundImage: Image.network('http://192.168.137.1:3000/image/$ImageId').image,
                     ),
                   ),
                   Positioned(

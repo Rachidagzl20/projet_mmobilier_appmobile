@@ -1,65 +1,91 @@
+import 'dart:convert';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_mmobilier_appmobile/appBarpage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:projet_mmobilier_appmobile/models/publication.dart';
 
-class Publication {
-  final String name;
-  final String date;
-  final String image;
-  final String text;
-  final String bottomImage;
+import 'package:http/http.dart' as http;
 
-  Publication({
-    required this.name,
-    required this.date,
-    required this.image,
-    required this.text,
-    required this.bottomImage,
-  });
-}
-
-class myacceuil extends StatefulWidget {
-  const myacceuil({Key? key}) : super(key: key);
+import '../models/user.dart';
+class MyAcceuil extends StatefulWidget {
+  const MyAcceuil({Key? key}) : super(key: key);
 
   @override
-  State<myacceuil> createState() => _myacceuilState();
+  State<MyAcceuil> createState() => _MyAcceuilState();
 }
 
-class _myacceuilState extends State<myacceuil> {
-  final List<Publication> publications = [
-    Publication(
-      name: 'Farid Aammi',
-      date: 'May 1st, 2023',
-      image: 'assets/profile_1.png',
-      text: "تعلن الشركة عن جمع عام يوم السبت الموافق 15 أبريل لمناقشة اشغال الشهر مارس أبريل لمناقشة اشغال الشهر مارس أبريل لمناقشة اشغال الشهر مارس أبريل لمناقشة اشغال الشهر مارس أبريل لمناقشة اشغال الشهر مارس أبريل لمناقشة اشغال ",
-      bottomImage: 'assets/pub_1.png',
-    ),
-    Publication(
-      name: 'SIHAM KINANI',
-      date: 'April 28th, 2023',
-      image: 'assets/profile_2.jpeg',
-      text: "تعلن الشركة عن جمع عام يوم السبت الموافق 15 أبريل لمناقشة اشغال الشهر مارس ",
+class _MyAcceuilState extends State<MyAcceuil> {
+  late List<Publication> publications = [];
 
-      bottomImage: 'assets/pub_2.png',
-    ),
-    Publication(
-      name: 'JAMILA IMMO',
-      date: 'April 25th, 2023',
-      image: 'assets/profile_1.png',
-      text: "تعلن الشركةعن جمع عام يوم السبت الموافق 15 أبريل لمناقشة اشغال الشهر مارس",
-      bottomImage: 'assets/pub_1.png',
-    ),
-    // add more publications here
-  ];
 
+  get username => null;
+
+
+  @override
+  void initState() {
+    super.initState();
+    fetchPublications();
+
+  }
+  Future<void> fetchPublications() async {
+    try {
+      final response = await http.get(Uri.parse('http://192.168.137.1:3000/publication/'));
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+        setState(() {
+
+          publications = data.map((publication) {
+            return Publication(
+
+              date: DateTime.parse(publication['date_publication']),
+              userID: publication['user'],
+              imageID: publication['images'],
+
+              description: publication['description'],
+            );
+
+          }).toList();
+        });
+        fetchAdditionalData();
+
+      } else {
+        print('Failed to fetch publications: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching publications: $error');
+    }
+  }
+  Future<void> fetchAdditionalData() async {
+    for (var publication in publications) {
+      final response = await http.get(Uri.parse('http://192.168.137.1:3000/user/${publication.userID}'));
+      if (response.statusCode == 200) {
+        final userData = jsonDecode(response.body);
+        final username = userData['username'];
+        final imageProfile = userData['avatar'];
+
+        setState(() {
+          publication.username = username;
+          publication.imageProfile = imageProfile;
+        });
+      } else {
+        print('Failed to fetch user data: ${response.statusCode}');
+      }
+    }
+  }
+
+  Widget buildImageWidget(String imageUrl) {
+    return Image.network(imageUrl);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: const MyAppBar(),
       body: ListView.builder(
         itemCount: publications.length,
         itemBuilder: (context, index) {
           final publication = publications[index];
+          final formattedDate =formatDate(publication.date , [yyyy, '-', mm, '-', dd]) ;// Format the DateTime object
           return Container(
             decoration: BoxDecoration(
               boxShadow: [
@@ -83,20 +109,21 @@ class _myacceuilState extends State<myacceuil> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            backgroundImage: AssetImage(publication.image),
+                            backgroundImage: NetworkImage('http://192.168.137.1:3000/image/${publication.imageProfile}'),
                             radius: 30,
                           ),
                           SizedBox(width: 16),
                           Expanded(
+
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  publication.name,
+                                  publication.username,
                                   style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),
                                 ),
                                 SizedBox(height: 11.0,),
-                                Text(publication.date),
+                                Text(formattedDate),
                               ],
                             ),
                           ),
@@ -111,7 +138,7 @@ class _myacceuilState extends State<myacceuil> {
                           children:  [
 
                             Expanded(
-                              child: Text(publication.text,
+                              child: Text(publication.description,
                                 style: TextStyle(fontSize: 11),
                                 softWrap: false,
                                 maxLines: 2,
@@ -125,8 +152,9 @@ class _myacceuilState extends State<myacceuil> {
 
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(publication.bottomImage),
-                    ),
+                      child: Image.network('http://192.168.137.1:3000/image/${publication.imageID}'),
+                      ),
+
                   ],
                 ),
               ),

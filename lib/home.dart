@@ -16,13 +16,13 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentTab = 0;
   final List<Widget> screens = [
-    const myacceuil(),
-    const Project(),
+    const MyAcceuil(),
+    ProjectScreen(),
     Chat(),
     NotificationPage(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = const myacceuil();
+  Widget currentScreen = const MyAcceuil();
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
                           minWidth: 40,
                           onPressed: () {
                             setState(() {
-                              currentScreen = const myacceuil();
+                              currentScreen = const MyAcceuil();
                               currentTab = 0;
                             });
                           },
@@ -112,7 +112,7 @@ class _HomeState extends State<Home> {
                           minWidth: 40,
                           onPressed: () {
                             setState(() {
-                              currentScreen = const Project();
+                              currentScreen = ProjectScreen();
                               currentTab = 1;
                             });
                           },
