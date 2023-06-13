@@ -112,7 +112,7 @@ class _MyAcceuilState extends State<MyAcceuil> {
                             backgroundImage: NetworkImage('http://192.168.137.1:3000/image/${publication.imageProfile}'),
                             radius: 30,
                           ),
-                          SizedBox(width: 16),
+                          const SizedBox(width: 16),
                           Expanded(
 
                             child: Column(
@@ -120,9 +120,9 @@ class _MyAcceuilState extends State<MyAcceuil> {
                               children: [
                                 Text(
                                   publication.username,
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),
+                                  style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),
                                 ),
-                                SizedBox(height: 11.0,),
+                                const SizedBox(height: 11.0,),
                                 Text(formattedDate),
                               ],
                             ),

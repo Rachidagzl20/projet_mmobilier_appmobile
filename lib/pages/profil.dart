@@ -82,7 +82,6 @@ class _ProfilState extends State<Profil> {
     clientName = prefs.getString('nomComplet') ?? '';
     userId = prefs.getString('userID')?? '';
     _fetchClientData();
-
   }
   // update  Data client
   Future<void> _updateUserData(String updatedNomComplet,String updatedAdresse,String updatedEmail,String updateCIN,String updatedPhone ) async {
@@ -154,16 +153,6 @@ class _ProfilState extends State<Profil> {
       }
     }
   }
-
-
-
-
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -377,7 +366,7 @@ class _ProfilState extends State<Profil> {
                         labelStyle: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,// Add your desired color here
+                          fontSize: 20,
                         ),
                         prefixIcon: const Icon(Icons.location_on,
                         color: AppColors.primary,),

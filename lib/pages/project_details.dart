@@ -27,11 +27,12 @@ class ProDetailspage extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8),
               child: Align(
                 alignment: Alignment.topCenter,
-                child: Image.asset(
-                  item['logo'],
+                child: Image.network(
+                  image,
                   width: 100,
                   height: 100,
                 ),
+
               ),
             ),
             const SizedBox(
